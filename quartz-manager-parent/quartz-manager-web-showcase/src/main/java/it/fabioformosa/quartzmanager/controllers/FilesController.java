@@ -1,5 +1,7 @@
 package it.fabioformosa.quartzmanager.controllers;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import it.fabioformosa.quartzmanager.api.common.config.OpenAPIConfigConsts;
 import it.fabioformosa.quartzmanager.services.FileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @RestController
+@SecurityRequirement(name = OpenAPIConfigConsts.QUARTZ_MANAGER_SEC_OAS_SCHEMA)
 @RequestMapping("/files")
 public class FilesController {
 

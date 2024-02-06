@@ -1,5 +1,5 @@
 chista-scheduler:
-  uploadFolder: /Users/midhundarvin/workplace/uploads
+  uploadFolder: /tmp/uploads
 quartz-manager:
   jobClassPackages: it.fabioformosa.quartzmanager.jobs
   oas:

@@ -1,8 +1,11 @@
 package it.fabioformosa;
 
+import liquibase.integration.spring.SpringLiquibase;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
@@ -19,9 +22,18 @@ import static org.springframework.test.util.AssertionErrors.assertEquals;
 @WebAppConfiguration
 class QuartManagerApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+  @Test
+  void contextLoads() {
+  }
+
+  @MockBean()
+  private SpringLiquibase springLiquibase;
+
+  @MockBean(name = "entityManagerFactory")
+  private Object hiberate;
+
+  @MockBean()
+  private PlatformTransactionManager platformTransactionManager;
 
   @Test
   public void givenPythonScriptEngineIsAvailable_whenScriptInvoked_thenOutputDisplayed() throws Exception {

@@ -2,32 +2,51 @@ package it.fabioformosa.quartzmanager.jobs.myjobs;
 
 import it.fabioformosa.quartzmanager.api.jobs.AbstractQuartzManagerJob;
 import it.fabioformosa.quartzmanager.api.jobs.entities.LogRecord;
+import it.fabioformosa.quartzmanager.services.FileService;
+import lombok.extern.slf4j.Slf4j;
+import org.python.util.PythonInterpreter;
 import org.quartz.JobExecutionContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.script.ScriptContext;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.SimpleScriptContext;
-import java.io.File;
-import java.io.FileReader;
-import java.io.StringWriter;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
+@Slf4j
 public class PythonJob extends AbstractQuartzManagerJob {
+
+  @Autowired
+  FileService fileService;
+
   @Override
   public LogRecord doIt(JobExecutionContext jobExecutionContext) {
-    StringWriter writer = new StringWriter();
-    ScriptContext context = new SimpleScriptContext();
-    context.setWriter(writer);
 
-    ScriptEngineManager manager = new ScriptEngineManager();
-    ScriptEngine engine = manager.getEngineByName("python");
-    // 1. Load as File
-    File file = new File(jobExecutionContext.getTrigger().getJobDataMap().getString("file"));
-    try {
-      engine.eval(new FileReader(file), context);
-      return new LogRecord(LogRecord.LogType.INFO, writer.toString().trim());
+    try (PythonInterpreter pyInterp = new PythonInterpreter()) {
+
+      // Set the script path
+      String filePath = fileService.getUploadsDirectory() + "/" + jobExecutionContext.getTrigger().getJobDataMap().getString("file");
+      String inputParams = jobExecutionContext.getTrigger().getJobDataMap().getString("inputParams");
+      log.info("InputParams : " + inputParams);
+      ProcessBuilder processBuilder = new ProcessBuilder("python3", filePath, inputParams);
+      processBuilder.redirectErrorStream(true);
+
+      Process process = processBuilder.start();
+      // this reads from the subprocess's output stream
+      BufferedReader subProcessInputReader =
+        new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+      int exitCode = process.waitFor();
+
+      StringBuilder result = new StringBuilder();
+      String line = null;
+      while ((line = subProcessInputReader.readLine()) != null)
+        result.append(line + "\n");
+
+      subProcessInputReader.close();
+
+      return new LogRecord(LogRecord.LogType.INFO, result.toString().trim());
     } catch (Exception e) {
-      throw new RuntimeException(e);
+      log.info(e.getMessage());
+      return new LogRecord(LogRecord.LogType.ERROR, e.getMessage());
     }
   }
 }
