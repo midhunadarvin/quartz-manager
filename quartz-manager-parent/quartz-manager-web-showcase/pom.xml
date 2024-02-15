@@ -123,6 +123,8 @@
 
 
 	<build>
+    <finalName>quartz-manager-web-showcase</finalName>
+
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -135,6 +137,10 @@
                   </goals>
               </execution>
           </executions>
+          <configuration>
+            <executable>true</executable>
+            <mainClass>it.fabioformosa.QuartzManagerDemoApplication</mainClass>
+          </configuration>
 				</plugin>
 			    <plugin>
 			      <groupId>org.apache.maven.plugins</groupId>
