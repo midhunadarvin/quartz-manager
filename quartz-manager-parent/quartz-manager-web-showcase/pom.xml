@@ -139,7 +139,6 @@
           </executions>
           <configuration>
             <executable>true</executable>
-            <mainClass>it.fabioformosa.QuartzManagerDemoApplication</mainClass>
           </configuration>
 				</plugin>
 			    <plugin>
