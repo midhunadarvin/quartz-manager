@@ -11,3 +11,4 @@ RUN mvn install
 EXPOSE 8080
 WORKDIR $HOME/quartz-manager-web-showcase
 CMD ["mvn", "spring-boot:run"]
+
