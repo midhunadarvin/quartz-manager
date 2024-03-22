@@ -1,6 +1,4 @@
-FROM openjdk
-
-RUN yum update -y
+FROM amazoncorrettoπ
 
 COPY quartz-manager-web-showcase/target/quartz-manager-web-showcase.war quartz-manager-web-showcase.war
 
