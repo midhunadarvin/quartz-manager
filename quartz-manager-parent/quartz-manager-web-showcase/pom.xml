@@ -5,7 +5,7 @@
     <parent>
       <groupId>it.fabioformosa.quartz-manager</groupId>
       <artifactId>quartz-manager-parent</artifactId>
-      <version>4.0.8</version>
+      <version>4.0.10-SNAPSHOT</version>
     </parent>
 
 	<artifactId>quartz-manager-web-showcase</artifactId>
@@ -35,10 +35,10 @@
           <groupId>it.fabioformosa.quartz-manager</groupId>
           <artifactId>quartz-manager-starter-security</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--          <groupId>it.fabioformosa.quartz-manager</groupId>-->
-<!--          <artifactId>quartz-manager-starter-persistence</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+          <groupId>it.fabioformosa.quartz-manager</groupId>
+          <artifactId>quartz-manager-starter-persistence</artifactId>
+        </dependency>
 
         <!-- SPRING -->
         <dependency>
@@ -112,6 +112,11 @@
           <groupId>org.apache.commons</groupId>
           <artifactId>commons-lang3</artifactId>
         </dependency>
+        <dependency>
+          <groupId>org.python</groupId>
+          <artifactId>jython-slim</artifactId>
+          <version>2.7.3b1</version>
+        </dependency>
 
         <!-- TEST -->
         <dependency>
@@ -124,7 +129,6 @@
 
 	<build>
     <finalName>quartz-manager-web-showcase</finalName>
-
 		<pluginManagement>
 			<plugins>
 				<plugin>
