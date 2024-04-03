@@ -4,12 +4,12 @@ import it.fabioformosa.quartzmanager.api.jobs.entities.LogRecord;
 import it.fabioformosa.quartzmanager.api.websockets.WebSocketProgressNotifier;
 import it.fabioformosa.quartzmanager.api.websockets.WebhookSender;
 import it.fabioformosa.quartzmanager.api.dto.TriggerFiredBundleDTO;
+import jakarta.annotation.Resource;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Resource;
 
 /**
  * Extends this class to create a job that produces LogRecord to be displayed

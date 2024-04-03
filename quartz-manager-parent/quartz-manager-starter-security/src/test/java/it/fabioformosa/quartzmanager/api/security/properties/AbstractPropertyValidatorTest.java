@@ -1,5 +1,7 @@
 package it.fabioformosa.quartzmanager.api.security.properties;
 
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.context.properties.bind.BindResult;
@@ -7,8 +9,6 @@ import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.boot.context.properties.source.ConfigurationPropertySource;
 import org.springframework.boot.context.properties.source.MapConfigurationPropertySource;
 
-import javax.validation.Validation;
-import javax.validation.Validator;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 

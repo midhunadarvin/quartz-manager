@@ -3,14 +3,14 @@ package it.fabioformosa.quartzmanager.api.security.helpers.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.fabioformosa.quartzmanager.api.security.properties.JwtSecurityProperties;
 import it.fabioformosa.quartzmanager.api.security.models.UserTokenState;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
