@@ -18,7 +18,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <springdoc-openapi.version>1.5.12</springdoc-openapi.version>
+    <springdoc-openapi.version>1.8.0</springdoc-openapi.version>
 		<java.version>9</java.version>
 	</properties>
 
@@ -80,6 +80,7 @@
         <dependency>
           <groupId>com.fasterxml.jackson.core</groupId>
           <artifactId>jackson-databind</artifactId>
+          <version>2.16.1</version>
         </dependency>
         <dependency>
           <groupId>com.fasterxml.jackson.core</groupId>
@@ -97,6 +98,12 @@
         <dependency>
             <groupId>net.sourceforge.nekohtml</groupId>
             <artifactId>nekohtml</artifactId>
+            <version>1.9.22</version>
+        </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.12.1</version>
         </dependency>
         <dependency>
           <groupId>io.rest-assured</groupId>
@@ -129,6 +136,7 @@
 
 	<build>
     <finalName>quartz-manager-web-showcase</finalName>
+
 		<pluginManagement>
 			<plugins>
 				<plugin>
