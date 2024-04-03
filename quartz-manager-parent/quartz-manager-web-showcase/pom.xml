@@ -1,170 +1,169 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-      <groupId>it.fabioformosa.quartz-manager</groupId>
-      <artifactId>quartz-manager-parent</artifactId>
-      <version>4.0.10-SNAPSHOT</version>
-    </parent>
+  <parent>
+    <groupId>it.fabioformosa.quartz-manager</groupId>
+    <artifactId>quartz-manager-parent</artifactId>
+    <version>4.1.0-SNAPSHOT</version>
+  </parent>
 
-	<artifactId>quartz-manager-web-showcase</artifactId>
+  <artifactId>quartz-manager-web-showcase</artifactId>
 
-    <packaging>war</packaging>
+  <packaging>war</packaging>
 
-	<name>Quartz Manager Web Showcase</name>
-	<description>A webapp that imports Quartz Manager API lib and the frontend webjar</description>
+  <name>Quartz Manager Web Showcase</name>
+  <description>A webapp that imports Quartz Manager API lib and the frontend webjar</description>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <springdoc-openapi.version>1.8.0</springdoc-openapi.version>
-		<java.version>9</java.version>
-	</properties>
+    <java.version>21</java.version>
+  </properties>
 
-	<dependencies>
-        <dependency>
-          <groupId>it.fabioformosa.quartz-manager</groupId>
-          <artifactId>quartz-manager-starter-api</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>it.fabioformosa.quartz-manager</groupId>
-          <artifactId>quartz-manager-starter-ui</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>it.fabioformosa.quartz-manager</groupId>
-          <artifactId>quartz-manager-starter-security</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>it.fabioformosa.quartz-manager</groupId>
-          <artifactId>quartz-manager-starter-persistence</artifactId>
-        </dependency>
+  <dependencies>
+    <dependency>
+      <groupId>it.fabioformosa.quartz-manager</groupId>
+      <artifactId>quartz-manager-starter-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>it.fabioformosa.quartz-manager</groupId>
+      <artifactId>quartz-manager-starter-ui</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>it.fabioformosa.quartz-manager</groupId>
+      <artifactId>quartz-manager-starter-security</artifactId>
+    </dependency>
+    <dependency>
+    <groupId>it.fabioformosa.quartz-manager</groupId>
+    <artifactId>quartz-manager-starter-persistence</artifactId>
+    </dependency>
 
-        <!-- SPRING -->
-        <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-devtools</artifactId>
-        </dependency>
-            <dependency>
-              <groupId>org.springframework.boot</groupId>
-              <artifactId>spring-boot-configuration-processor</artifactId>
-              <optional>true</optional>
-            </dependency>
-          <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-test</artifactId>
-          <scope>test</scope>
-        </dependency>
+    <!-- SPRING -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-tomcat</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
 
-        <!-- MISC -->
-        <dependency>
-          <groupId>org.springdoc</groupId>
-          <artifactId>springdoc-openapi-ui</artifactId>
-          <version>${springdoc-openapi.version}</version>
-          <optional>true</optional>
+    <!-- MISC -->
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>${springdoc-openapi.version}</version>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+      <version>0.12.3</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.16.1</version>
         </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.0</version>
-          </dependency>
-        <dependency>
-          <groupId>com.fasterxml.jackson.core</groupId>
-          <artifactId>jackson-databind</artifactId>
-          <version>2.16.1</version>
-        </dependency>
-        <dependency>
-          <groupId>com.fasterxml.jackson.core</groupId>
-          <artifactId>jackson-annotations</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>com.h2database</groupId>
-          <artifactId>h2</artifactId>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.codehaus.groovy</groupId>
-          <artifactId>groovy</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.sourceforge.nekohtml</groupId>
-            <artifactId>nekohtml</artifactId>
-            <version>1.9.22</version>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy</artifactId>
+      <version>3.0.20</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sourceforge.nekohtml</groupId>
+      <artifactId>nekohtml</artifactId>
+<version>1.9.22</version>
         </dependency>
         <dependency>
             <groupId>xerces</groupId>
             <artifactId>xercesImpl</artifactId>
             <version>2.12.1</version>
-        </dependency>
-        <dependency>
-          <groupId>io.rest-assured</groupId>
-          <artifactId>spring-mock-mvc</artifactId>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.commons</groupId>
-          <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
+    </dependency>
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>spring-mock-mvc</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+    </dependency><dependency>
           <groupId>org.python</groupId>
           <artifactId>jython-slim</artifactId>
           <version>2.7.3b1</version>
         </dependency>
 
-        <!-- TEST -->
-        <dependency>
-          <groupId>org.junit.platform</groupId>
-          <artifactId>junit-platform-launcher</artifactId>
-          <scope>test</scope>
-        </dependency>
-	</dependencies>
+    <!-- TEST -->
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
 
-	<build>
+  <build>
     <finalName>quartz-manager-web-showcase</finalName>
 
 		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-maven-plugin</artifactId>
-					<executions>
-              <execution>
-                  <goals>
-                      <goal>repackage</goal>
-                  </goals>
-              </execution>
+      <plugins>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <executions>
+            <execution>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+            </execution>
           </executions>
           <configuration>
             <executable>true</executable>
           </configuration>
 				</plugin>
-			    <plugin>
-			      <groupId>org.apache.maven.plugins</groupId>
-			      <artifactId>maven-compiler-plugin</artifactId>
-			      <version>3.8.0</version>
-			      <configuration>
-			        <source>9</source>
-			        <target>9</target>
-			      </configuration>
-			    </plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
-
-
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+          <configuration>
+            <source>9</source>
+            <target>9</target>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>

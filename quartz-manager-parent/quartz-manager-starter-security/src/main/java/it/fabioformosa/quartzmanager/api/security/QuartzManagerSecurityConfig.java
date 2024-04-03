@@ -23,6 +23,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -78,12 +79,12 @@ public class QuartzManagerSecurityConfig {
   }
 
   @Bean
-  public PasswordEncoder quartzManagerPasswordEncoder(){
+  public PasswordEncoder quartzManagerPasswordEncoder() {
     return new BCryptPasswordEncoder();
   }
 
   @Bean(name = "quartzManagerInMemoryAuthentication")
-  public InMemoryUserDetailsManager  configureInMemoryAuthentication(InMemoryAccountProperties inMemoryAccountProps, PasswordEncoder quartzManagerPasswordEncoder) throws Exception {
+  public InMemoryUserDetailsManager configureInMemoryAuthentication(InMemoryAccountProperties inMemoryAccountProps, PasswordEncoder quartzManagerPasswordEncoder) throws Exception {
     List<UserDetails> users = new ArrayList<>();
     if (inMemoryAccountProps.isEnabled() && inMemoryAccountProps.getUsers() != null && !inMemoryAccountProps.getUsers().isEmpty()) {
       users = inMemoryAccountProps.getUsers().stream()
@@ -101,17 +102,18 @@ public class QuartzManagerSecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http,
                                          @Qualifier("quartzManagerInMemoryAuthentication") InMemoryUserDetailsManager userDetailsService,
                                          AuthenticationManager authenticationManager) throws Exception {
-    http.antMatcher(QUARTZ_MANAGER_API_ANT_MATCHER).csrf().disable() //
-      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() //
-      .exceptionHandling().authenticationEntryPoint(restAuthEntryPoint()).and() //
-      .addFilterBefore(jwtAuthenticationTokenFilter(userDetailsService), BasicAuthenticationFilter.class) //
-      .authorizeRequests();
+    http.authorizeHttpRequests(authz -> authz
+        .requestMatchers(QUARTZ_MANAGER_API_ANT_MATCHER).authenticated())
+      .exceptionHandling(ex -> ex.authenticationEntryPoint(restAuthEntryPoint()))
+      .addFilterBefore(jwtAuthenticationTokenFilter(userDetailsService), BasicAuthenticationFilter.class);
 
-    QuartzManagerHttpSecurity.from(http).withLoginConfigurer(loginConfigurer(), logoutConfigurer()) //
+    QuartzManagerHttpSecurity.from(http).withLoginConfigurer(loginConfigurer(), logoutConfigurer())
       .login(QUARTZ_MANAGER_LOGIN_PATH, authenticationManager).logout(QUARTZ_MANAGER_LOGOUT_PATH);
 
-    http.authorizeRequests()
-      .antMatchers(QUARTZ_MANAGER_API_ANT_MATCHER).authenticated();
+    http.authorizeHttpRequests(authz -> authz
+        .requestMatchers(QUARTZ_MANAGER_API_ANT_MATCHER).authenticated())
+      .csrf(AbstractHttpConfigurer::disable)
+      .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
     return http.build();
   }
@@ -120,10 +122,10 @@ public class QuartzManagerSecurityConfig {
   public WebSecurityCustomizer webSecurityCustomizer(@Value("${quartz-manager.oas.enabled:false}") Boolean oasEnabled) {
     return web -> {
       web.ignoring()//
-        .antMatchers(HttpMethod.GET, QUARTZ_MANAGER_UI_ANT_MATCHER);
-      if(BooleanUtils.isNotFalse(oasEnabled))
+        .requestMatchers(HttpMethod.GET, QUARTZ_MANAGER_UI_ANT_MATCHER);
+      if (BooleanUtils.isNotFalse(oasEnabled))
         web.ignoring()
-          .antMatchers(HttpMethod.GET, PATTERNS_SWAGGER_UI);
+          .requestMatchers(HttpMethod.GET, PATTERNS_SWAGGER_UI);
     };
   }
 

@@ -1,5 +1,7 @@
 package it.fabioformosa.quartzmanager.api.security.helpers.impl;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,10 +12,6 @@ import org.springframework.security.web.util.matcher.OrRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,11 +20,10 @@ import java.util.stream.Collectors;
 
 
 /**
- *   It finds the jwtToken into the request, it validates it and sets an @Authentication into the @SecurityContextHolder.
- *   If the request has a path included into the paths that must be skipped, it sets an anonymous authentication
- *
- *   It delegates the jwtToken retrieve to the @JwtTokenHelper that applies several strategies.
- *
+ * It finds the jwtToken into the request, it validates it and sets an @Authentication into the @SecurityContextHolder.
+ * If the request has a path included into the paths that must be skipped, it sets an anonymous authentication
+ * <p>
+ * It delegates the jwtToken retrieve to the @JwtTokenHelper that applies several strategies.
  */
 public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
@@ -42,15 +39,15 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
   private static final String LOGOUT_MATCHER = "/api/logout";
 
   private static final List<String> PATH_TO_SKIP = Arrays.asList(
-      ROOT_MATCHER,
-      HTML_MATCHER,
-      FAVICON_MATCHER,
-      CSS_MATCHER,
-      JS_MATCHER,
-      IMG_MATCHER,
-      LOGIN_MATCHER,
-      LOGOUT_MATCHER
-      );
+    ROOT_MATCHER,
+    HTML_MATCHER,
+    FAVICON_MATCHER,
+    CSS_MATCHER,
+    JS_MATCHER,
+    IMG_MATCHER,
+    LOGIN_MATCHER,
+    LOGOUT_MATCHER
+  );
 
   private final JwtTokenHelper jwtTokenHelper;
   private final UserDetailsService userDetailsService;
@@ -63,7 +60,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
   }
 
   @Override
-  public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+  protected void doFilterInternal(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response, jakarta.servlet.FilterChain chain) throws ServletException, IOException {
     String jwtToken = jwtTokenHelper.retrieveToken(request);
     if (jwtToken != null) {
       log.debug("Found a jwtToken into the request {}", request.getPathInfo());
@@ -78,23 +75,20 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
       } catch (Exception e) {
         log.error("Authentication failed! an expected error occurred authenticating the request {} due to {}", request.getRequestURL(), e.getMessage(), e);
       }
-    }
-    else if(skipPathRequest(request, PATH_TO_SKIP)) {
+    } else if (skipPathRequest(request, PATH_TO_SKIP)) {
       log.debug("Detected a path to be skipped from authentication, so activated anonymous auth for {}", request.getRequestURL());
       SecurityContextHolder.getContext().setAuthentication(new AnonAuthentication());
-    }
-    else
+    } else
       log.debug("Not found any jwtToken and the request hasn't a path to be skipped from auth. Path: {}", request.getRequestURL());
 
     chain.doFilter(request, response);
   }
 
-  private boolean skipPathRequest(HttpServletRequest request, List<String> pathsToSkip ) {
-    if(pathsToSkip == null)
+  private boolean skipPathRequest(HttpServletRequest request, List<String> pathsToSkip) {
+    if (pathsToSkip == null)
       pathsToSkip = new ArrayList<>();
     List<RequestMatcher> matchers = pathsToSkip.stream().map(AntPathRequestMatcher::new).collect(Collectors.toList());
     OrRequestMatcher compositeMatchers = new OrRequestMatcher(matchers);
     return compositeMatchers.matches(request);
   }
-
 }

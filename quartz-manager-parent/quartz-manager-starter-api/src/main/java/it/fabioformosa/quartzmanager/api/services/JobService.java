@@ -1,6 +1,7 @@
 package it.fabioformosa.quartzmanager.api.services;
 
 import it.fabioformosa.quartzmanager.api.jobs.AbstractQuartzManagerJob;
+import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -8,7 +9,6 @@ import org.reflections.Reflections;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.stream.Collectors;
 
