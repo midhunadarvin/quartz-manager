@@ -45,7 +45,7 @@
     "xml2js": "0.5.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "17.3.6",
+    "@angular-devkit/build-angular": "18.2.4",
     "@angular-devkit/core": "17.2.2",
     "@angular-eslint/builder": "17.2.1",
     "@angular-eslint/eslint-plugin": "17.2.1",
